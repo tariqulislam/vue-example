@@ -25,6 +25,8 @@
      <button v-on:click="showWarningMsg()">Show Alert</button>
      <button v-on:click="logButtonOneMsg()">Button one</button>
      <button v-on:click="logButtonTwoMsg()">Button Two</button>
+     <button v-on:click="updateVal()">Up Value</button>
+     <router-link :to="{name: 'ProductList', param: {id: 1234}}">Nav to Page2</router-link>
    </div>
 </template>
 
@@ -36,6 +38,9 @@ export default {
             type: Array,
             validator: value => value.length >=1
         }
+    },
+    created() {
+        this.id = this.$route.params.id;
     },
     data: function () {
         return {
@@ -52,6 +57,11 @@ export default {
 
         }
     },
+    filters: {
+      createTwoDigit: function (val) {
+          return '$'+ val.toFixed(2)
+      }
+    },
     methods: {
         showWarningMsg: function () {
             console.log("method Executed")
@@ -62,6 +72,9 @@ export default {
         },
         logButtonTwoMsg: function () {
             console.log(`${this.buttonTwoMsg}`)
+        },
+        updateVal: function () {
+            this.$emit('value-is-update')
         }
     },
     computed: {

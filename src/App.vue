@@ -1,19 +1,30 @@
 <template>
   <div id="app">
-    <PostList v-bind:listOfPosts="listOfPosts" />
+    <Header></Header>
+    <PostList @value-is-update="updateValue" />
+    <div>This is Up value {{upVal}}</div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import PostList from './components/PostList.vue' 
+import Header from './components/Header'
 
 export default {
   name: 'App',
   components: {
-    PostList
+    PostList,
+    Header
+  },
+  methods: {
+     updateValue: function () {
+            return this.upVal++;
+        }
   },
   data: function () {
     return {
+      upVal: 0,
       listOfPosts: [
         
       {
